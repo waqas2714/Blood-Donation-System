@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
 //        establishDBConnection();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("removeDrive.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
         stage.setScene(scene);
@@ -30,10 +30,10 @@ public class HelloApplication extends Application {
     }
 
     private void establishDBConnection() {
-        String dbHost = "192.168.1.4";
-        String dbName = "user_registration";
-        String username = "root";
-        String password = "MySqlPassword";
+        String dbHost = "192.168.100.9";
+        String dbName = "blooddonationsystem";
+        String username = "dbsadmin";
+        String password = "dbssucks";
         String url = "jdbc:mysql://" + dbHost + ":3306" + "/" + dbName;
 
         try {

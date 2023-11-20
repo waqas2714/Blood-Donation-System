@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.PlaceOfferController">
+   <children>
+      <Label alignment="CENTER" layoutY="20.0" prefHeight="51.0" prefWidth="610.0" text="Blood Donation System">
+         <font>
+            <Font name="Times New Roman" size="46.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.23222748815165878" endY="1.0" startX="0.23222748815165878" startY="0.5829383886255924">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8600000143051147" green="0.16684000194072723" blue="0.06019999831914902" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006711409395973154">
+                     <color>
+                        <Color red="0.8600000143051147" green="0.16684000194072723" blue="0.06019999831914902" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006711409395973154">
+                     <color>
+                        <Color red="0.8600000143051147" green="0.16684000194072723" blue="0.06019999831914902" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Label alignment="CENTER" layoutY="71.0" prefHeight="17.0" prefWidth="610.0" text="Place Request">
+         <font>
+            <Font name="Arial Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="465.0" layoutY="97.0" prefHeight="26.0" prefWidth="68.0" text="mL">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <ListView fx:id="listViewBloodGroup" layoutX="109.0" layoutY="125.0" prefHeight="205.0" prefWidth="87.0" />
+      <Slider fx:id="sliderAmount" blockIncrement="1.0" layoutX="492.0" layoutY="125.0" majorTickUnit="27.0" max="360.0" min="80.0" minorTickCount="10" orientation="VERTICAL" prefHeight="205.0" prefWidth="15.0" showTickLabels="true" showTickMarks="true" />
+      <Label alignment="CENTER" layoutX="99.0" layoutY="97.0" prefHeight="26.0" prefWidth="107.0" text="Blood Group">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnPlaceRequest" layoutX="269.0" layoutY="353.0" mnemonicParsing="false" style="-fx-background-color: #f73f31;" text="Place" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnBack" layoutY="-2.0" mnemonicParsing="false" style="-fx-background-color: #f73f31;" text="&lt; Back" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
