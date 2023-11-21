@@ -28,27 +28,27 @@ public class HelloApplication extends Application {
     }
 
     private void establishDBConnection() {
-        String url = "jdbc:mysql://10.7.96.185:3306/sakila";
-//        String url = "jdbc:mysql://10.7.32.156:3306/blooddonationsystem";
-        String user = "Waqas";
-        String password = "MySqlPassword";
+        String url = "jdbc:mysql://dbs-project.mysql.database.azure.com:3306/test";
+//        String url = "jdbc:mysql://192.168.1.7:3306/testdb";
+        String user = "dbsadmin";
+        String password = "AzurePassword1#";
 
         try {
             // Establish the connection
             Connection conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connected to the database!");
-//            Statement statement = conn.createStatement();
-//            ResultSet resultSet = statement.executeQuery("SELECT * FROM names");
-//
-//            // Iterate through the result set and create User objects
-//            while (resultSet.next()) {
-//                String name = resultSet.getString("name");
-//                System.out.println(name);
-//            }
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM names");
 
-            // Close connections
-//            resultSet.close();
-//            statement.close();
+            // Iterate through the result set and create User objects
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                System.out.println(name);
+            }
+
+//             Close connections
+            resultSet.close();
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
