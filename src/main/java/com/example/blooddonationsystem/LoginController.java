@@ -16,7 +16,7 @@ public class LoginController {
     private void GoToSignup(ActionEvent event) {
         try {
             // Load the login.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("signupMain.fxml"));
             Parent root = loader.load();
 
             // Get the stage information

@@ -9,15 +9,15 @@ import java.io.IOException;
 import java.sql.*;
 
 public class HelloApplication extends Application {
-    private Connection connection;
+    private static Connection connection;
 
     @Override
     public void start(Stage stage) throws IOException {
         establishDBConnection();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("removeDrive.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signupMain.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Blood Donation System");
         stage.setScene(scene);
 
         stage.setOnCloseRequest(event -> {
@@ -27,28 +27,17 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+
     private void establishDBConnection() {
-        String url = "jdbc:mysql://dbs-project.mysql.database.azure.com:3306/test";
-//        String url = "jdbc:mysql://192.168.1.7:3306/testdb";
+        String url = "jdbc:mysql://dbs-project.mysql.database.azure.com:3306/blooddonationsystem";
         String user = "dbsadmin";
         String password = "AzurePassword1#";
 
         try {
             // Establish the connection
-            Connection conn = DriverManager.getConnection(url, user, password);
+            connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connected to the database!");
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM names");
 
-            // Iterate through the result set and create User objects
-            while (resultSet.next()) {
-                String name = resultSet.getString("name");
-                System.out.println(name);
-            }
-
-//             Close connections
-            resultSet.close();
-            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,6 +54,10 @@ public class HelloApplication extends Application {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static Connection getConnection() {
+        return connection;
     }
 
     public static void main(String[] args) {
