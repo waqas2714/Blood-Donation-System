@@ -78,6 +78,9 @@ public class SignupDonorController implements Initializable {
             }
         });
     }
+
+
+
     @FXML
     private void signup(ActionEvent event) {
         String name = txtName.getText();
@@ -121,8 +124,10 @@ public class SignupDonorController implements Initializable {
                 int count = resultSet.getInt(1);
                 if (count > 0) {
                     labelError.setText("Email already used");
+                    return;
                 }
             }
+            ////this is the error code current////
 
             List<String> cityList = Cities.getCities();
             if (!cityList.contains(city)) {
