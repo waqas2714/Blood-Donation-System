@@ -78,7 +78,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <TextField fx:id="txtCity" layoutX="356.0" layoutY="143.0" prefHeight="25.0" prefWidth="213.0" promptText="City of Residence" />
+      <TextField fx:id="txtCity" layoutX="356.0" layoutY="143.0" prefHeight="25.0" prefWidth="213.0" promptText="City" />
       <Label fx:id="txtName1" layoutX="54.0" layoutY="180.0" text="Contact">
          <font>
             <Font name="System Bold" size="17.0" />
@@ -98,5 +98,10 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
+      <Button fx:id="btnBack" layoutY="-6.0" mnemonicParsing="false" onAction="#goToSignupMain" prefHeight="26.0" prefWidth="59.0" style="-fx-background-color: #B30000;" text="&lt; Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

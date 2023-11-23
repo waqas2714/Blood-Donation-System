@@ -13,10 +13,7 @@ import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -24,6 +21,8 @@ import java.util.stream.Collectors;
 public class SignupOtherController implements Initializable {
     @FXML
     private Button btnGoToLogin;
+    @FXML
+    private Button btnBack;
     @FXML
     private TextField txtName;
     @FXML
@@ -80,6 +79,7 @@ public class SignupOtherController implements Initializable {
         String password = txtPassword.getText();
         String city = txtCity.getText();
         String contact = txtContact.getText();
+        String website = txtWebsite.getText();
         String role = choiceBoxRole.getValue();
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || city.isEmpty() || contact.isEmpty() || role == null) {
@@ -114,34 +114,100 @@ public class SignupOtherController implements Initializable {
                     labelError.setText("Email already used");
                 }
             }
-//
-//
-//            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-//
-//            String insertQuery = "INSERT INTO users (username, password, gender, email, role_id, bloodgroup, location) VALUES (?, ?, ?, ?, ?, ?, ?)";
-//            preparedStatement = connection.prepareStatement(insertQuery);
-//            preparedStatement.setString(1, name);
-//            preparedStatement.setString(2, hashedPassword);
-//            preparedStatement.setString(3, gender);
-//            preparedStatement.setString(4, email);
-//            preparedStatement.setString(5, "5");
-//            preparedStatement.setString(6, bloodGroup);
-//            preparedStatement.setString(7, city);
-//
-//            preparedStatement.executeUpdate();
-//
-//            System.out.println("Signup Successful!");
-//
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.setTitle("Signup Successful");
-//            alert.setHeaderText(null);
-//            alert.setContentText("Signed up successfully! Please login now.");
-//
-//            // Show the dialogue
-//            alert.showAndWait();
-//
-//            //Send the user to the login page
-//            GoToLogin(null);
+
+            List<String> cityList = Cities.getCities();
+            if (!cityList.contains(city)) {
+                labelError.setText("City should be chosen from the given cities.");
+                return;
+            }
+
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+            String tempRole = "";
+            switch (role){
+                case "Hospital" : {
+                    tempRole = "2";
+                    break;
+                }
+                case "NGO" : {
+                    tempRole = "3";
+                    break;
+                }
+                case "Blood Bank" : {
+                    tempRole = "4";
+                    break;
+                }
+            }
+
+            //Getting location Id
+            String getLocationIdQuery = "SELECT location_id FROM locations WHERE city = ?";
+            PreparedStatement locationStatement = connection.prepareStatement(getLocationIdQuery);
+            locationStatement.setString(1, city);
+            ResultSet locationResult = locationStatement.executeQuery();
+
+            int locationId;
+            if (locationResult.next()) {
+                locationId = locationResult.getInt("location_id");
+            } else {
+                labelError.setText("Invalid city.");
+                return;
+            }
+
+            String insertQuery = "INSERT INTO users (username, password, email, role_id, location_id) VALUES (?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, hashedPassword);
+            preparedStatement.setString(3, email);
+            preparedStatement.setString(4, tempRole);
+            preparedStatement.setInt(5, locationId);
+
+            preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            int userId = -1;
+
+            if (generatedKeys.next()) {
+                userId = generatedKeys.getInt(1); // Retrieve the auto-generated user_id
+                System.out.println("Generated User ID: " + userId);
+            }
+
+            // Insert data into the Donors table
+            String tempTable = "";
+            switch (role){
+                case "Hospital" : {
+                    tempTable = "hospitals";
+                    break;
+                }
+                case "NGO" : {
+                    tempTable = "ngos";
+                    break;
+                }
+                case "Blood Bank" : {
+                    tempTable = "bloodbanks";
+                    break;
+                }
+            }
+
+            String insertDonorQuery = "INSERT INTO " + tempTable + " (user_id, website) VALUES (?, ?)";
+            PreparedStatement donorStatement = connection.prepareStatement(insertDonorQuery);
+            donorStatement.setInt(1, userId);
+            donorStatement.setString(2, website);
+
+            donorStatement.executeUpdate();
+
+
+            System.out.println("Signup Successful!");
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Signup Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Signed up successfully! Please login now.");
+
+            // Show the dialogue
+            alert.showAndWait();
+
+            //Send the user to the login page
+            GoToLogin(null);
         } catch (SQLException ex) {
             labelError.setText("Error signing up. Please try again.");
             ex.printStackTrace();
@@ -158,6 +224,25 @@ public class SignupOtherController implements Initializable {
 
             // Get the stage information
             Stage stage = (Stage) btnGoToLogin.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+    }
+
+    @FXML
+    private void goToSignupMain(ActionEvent event) {
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("signupMain.fxml"));
+            Parent root = loader.load();
+
+            // Get the stage information
+            Stage stage = (Stage) btnBack.getScene().getWindow();
             Scene scene = new Scene(root);
 
             // Set the new scene onto the stage

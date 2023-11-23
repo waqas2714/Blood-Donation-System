@@ -98,5 +98,10 @@
       </Label>
       <ChoiceBox fx:id="choiceBoxBloodGroup" layoutX="134.0" layoutY="218.0" prefWidth="150.0" />
       <Label fx:id="labelError" alignment="CENTER" layoutY="263.0" prefHeight="17.0" prefWidth="600.0" textFill="RED" />
+      <Button fx:id="btnBack" layoutX="-6.0" layoutY="-5.0" mnemonicParsing="false" onAction="#goToSignupMain" prefHeight="26.0" prefWidth="59.0" style="-fx-background-color: #B30000;" text="&lt; Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

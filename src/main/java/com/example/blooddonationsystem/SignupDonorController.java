@@ -24,6 +24,8 @@ public class SignupDonorController implements Initializable {
     @FXML
     private Button btnGoToLogin;
     @FXML
+    private Button btnBack;
+    @FXML
     private TextField txtName;
     @FXML
     private TextField txtEmail;
@@ -131,23 +133,6 @@ public class SignupDonorController implements Initializable {
 
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-            String insertQuery = "INSERT INTO users (username, password, email, role_id) VALUES (?, ?, ?, ?)";
-            preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, hashedPassword);
-            preparedStatement.setString(3, email);
-            preparedStatement.setString(4, "1");
-
-            preparedStatement.executeUpdate();
-
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            int userId = -1;
-
-            if (generatedKeys.next()) {
-                userId = generatedKeys.getInt(1); // Retrieve the auto-generated user_id
-                System.out.println("Generated User ID: " + userId);
-            }
-
             //Getting location Id
             String getLocationIdQuery = "SELECT location_id FROM locations WHERE city = ?";
             PreparedStatement locationStatement = connection.prepareStatement(getLocationIdQuery);
@@ -161,6 +146,26 @@ public class SignupDonorController implements Initializable {
                 labelError.setText("Invalid city.");
                 return;
             }
+
+            String insertQuery = "INSERT INTO users (username, password, email, role_id, location_id) VALUES (?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, hashedPassword);
+            preparedStatement.setString(3, email);
+            preparedStatement.setString(4, "1");
+            preparedStatement.setInt(5, locationId);
+
+            preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            int userId = -1;
+
+            if (generatedKeys.next()) {
+                userId = generatedKeys.getInt(1); // Retrieve the auto-generated user_id
+                System.out.println("Generated User ID: " + userId);
+            }
+
+
 
             // Insert data into the Donors table
             String insertDonorQuery = "INSERT INTO Donors (user_id, last_donation_date, bloodgroup, gender) VALUES (?, ?, ?, ?)";
@@ -190,7 +195,6 @@ public class SignupDonorController implements Initializable {
         }
     }
 
-
     @FXML
     private void GoToLogin(ActionEvent event) {
         try {
@@ -210,5 +214,23 @@ public class SignupDonorController implements Initializable {
         }
     }
 
+    @FXML
+    private void goToSignupMain(ActionEvent event) {
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("signupMain.fxml"));
+            Parent root = loader.load();
+
+            // Get the stage information
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+    }
 
 }
