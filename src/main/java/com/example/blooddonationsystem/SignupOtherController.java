@@ -112,6 +112,7 @@ public class SignupOtherController implements Initializable {
                 int count = resultSet.getInt(1);
                 if (count > 0) {
                     labelError.setText("Email already used");
+                    return;
                 }
             }
 
