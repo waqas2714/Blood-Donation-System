@@ -15,13 +15,16 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         establishDBConnection();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signupMain.fxml"));
+        updateApprovalState();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hospitalMain.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Blood Donation System");
         stage.setScene(scene);
 
         stage.setOnCloseRequest(event -> {
             closeDBConnection();
+            System.out.println("Connection Closed");
         });
 
         stage.show();
@@ -58,6 +61,21 @@ public class HelloApplication extends Application {
 
     public static Connection getConnection() {
         return connection;
+    }
+
+    private void updateApprovalState() {
+        try {
+            String query = "UPDATE RequestsByHospitals " +
+                    "SET approval_state = 'rejected' " +
+                    "WHERE approval_state = 'pending' AND deadline_date < CURDATE()";
+
+            try (Statement statement = connection.createStatement()) {
+                int rowsUpdated = statement.executeUpdate(query);
+                System.out.println(rowsUpdated + " hospital requests rows updated.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

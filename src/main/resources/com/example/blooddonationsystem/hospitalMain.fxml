@@ -54,22 +54,22 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnPlaceRequest" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FF0000;" text="Place Request" textFill="WHITE">
+            <Button fx:id="btnPlaceRequest" mnemonicParsing="false" onAction="#goToPage" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FF0000;" text="Place Request" textFill="WHITE">
                <font>
                   <Font name="Arial" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="btnRemoveRequest" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FFD700;" text="Remove Request" textFill="WHITE" GridPane.columnIndex="1">
+            <Button fx:id="btnRemoveRequest" mnemonicParsing="false" onAction="#goToPage" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FFD700;" text="Remove Request" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Arial" size="23.0" />
                </font>
             </Button>
-            <Button fx:id="btnOfferMatches" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: #000080;" text="Offer Matches" textFill="WHITE" GridPane.rowIndex="1">
+            <Button fx:id="btnOfferMatches" mnemonicParsing="false" onAction="#goToPage" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: #000080;" text="Request Matches" textFill="WHITE" GridPane.rowIndex="1">
                <font>
-                  <Font name="Arial" size="25.0" />
+                  <Font name="Arial" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnAllOffers" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: #FF8C00;" text="See All Offers" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnAllOffers" mnemonicParsing="false" onAction="#goToPage" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: #FF8C00;" text="See All Offers" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial" size="25.0" />
                </font>
