@@ -39,7 +39,7 @@ public class RemoveRequestsController implements Initializable {
     int hospitalId;
 
     {
-        hospitalId = 2;
+        hospitalId = 1;
     }
 
     @Override

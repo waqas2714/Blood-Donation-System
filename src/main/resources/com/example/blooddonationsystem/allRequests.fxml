@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.RelevantOffersController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.AllRequestsController">
    <children>
       <Label alignment="CENTER" layoutY="20.0" prefHeight="51.0" prefWidth="610.0" text="Blood Donation System">
          <font>
@@ -42,16 +43,23 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label alignment="CENTER" layoutY="86.0" prefHeight="17.0" prefWidth="610.0" text="All Offers">
+      <Label alignment="CENTER" layoutX="1.0" layoutY="86.0" prefHeight="17.0" prefWidth="610.0" text="Your All Requests">
          <font>
             <Font name="Times New Roman Bold" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="btnBack" layoutY="-2.0" mnemonicParsing="false" style="-fx-background-color: #f73f31;" text="&lt; Back" textFill="WHITE">
+      <Button fx:id="btnBack" layoutY="-2.0" mnemonicParsing="false" onAction="#goToHospitalMain" style="-fx-background-color: #f73f31;" text="&lt; Back" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font>
       </Button>
-      <TableView layoutX="22.0" layoutY="127.0" prefHeight="250.0" prefWidth="567.0" />
+      <TableView fx:id="table" layoutX="22.0" layoutY="127.0" prefHeight="250.0" prefWidth="567.0">
+         <columns>
+            <TableColumn fx:id="tableColumnRequestId" prefWidth="77.0" text="Request ID" />
+            <TableColumn fx:id="tableColumnBloodType" prefWidth="136.0" text="Blood Type" />
+            <TableColumn fx:id="tableColumnAmount" prefWidth="103.0" text="Amount" />
+            <TableColumn fx:id="tableColumnRequestDate" prefWidth="116.0" text="Date Requested" />
+            <TableColumn fx:id="tableColumnStatus" prefWidth="134.0" text="Status" />
+         </columns></TableView>
    </children>
 </AnchorPane>

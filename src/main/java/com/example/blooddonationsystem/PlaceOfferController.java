@@ -31,7 +31,7 @@ public class PlaceOfferController implements Initializable {
     private int hospital_id;
 
     public PlaceOfferController() {
-        hospital_id = 2;
+        hospital_id = 1;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class PlaceOfferController implements Initializable {
             amount = Integer.parseInt(txtAmount.getText());
 
             if (amount >= 80 && amount <= 360) {
-                if (dateNeededBefore.isAfter(currentDate)) {
+                if (!dateNeededBefore.isBefore(currentDate)) {
                     Connection connection = HelloApplication.getConnection();
                     // Prepare the SQL query
                     String query = "INSERT INTO RequestsByHospitals (hospital_id, blood_type, quantity, request_date, deadline_date, approval_state) VALUES (?, ?, ?, ?, ?, ?)";

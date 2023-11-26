@@ -16,7 +16,7 @@ public class hospitalMainController {
     @FXML
     private Button btnOfferMatches;
     @FXML
-    private Button btnAllOffers;
+    private Button btnMyRequests;
 
     public void goToPage(ActionEvent event){
         Object source = event.getSource();
@@ -37,12 +37,12 @@ public class hospitalMainController {
                     pageName = "removeRequests.fxml";
                     break;
                 }
-                case "btnAllOffers":{
-                    pageName = "All Offers.fxml";
-                    break;
-                }
                 case "btnOfferMatches":{
                     pageName = "relevantOffers.fxml";
+                    break;
+                }
+                case "btnMyRequests":{
+                    pageName = "allRequests.fxml";
                     break;
                 }
             }
