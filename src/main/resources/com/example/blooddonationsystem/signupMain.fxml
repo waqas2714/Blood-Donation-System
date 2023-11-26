@@ -8,7 +8,6 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.SignupMainController">
    <children>
       <Label alignment="CENTER" layoutY="14.0" prefHeight="51.0" prefWidth="610.0" text="Blood Donation System">
@@ -60,6 +59,11 @@
       <Button fx:id="btnOther" layoutX="383.0" layoutY="188.0" mnemonicParsing="false" onAction="#goToOther" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #FF8C00;" text="Other">
          <font>
             <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnGoToLogin" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#GoToLogin" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #B30000;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="10.0" />
          </font>
       </Button>
    </children>
