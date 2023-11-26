@@ -154,13 +154,14 @@ public class SignupOtherController implements Initializable {
                 return;
             }
 
-            String insertQuery = "INSERT INTO users (username, password, email, role_id, location_id) VALUES (?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO users (username, password, email, role_id, location_id, contact) VALUES (?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, hashedPassword);
             preparedStatement.setString(3, email);
             preparedStatement.setString(4, tempRole);
             preparedStatement.setInt(5, locationId);
+            preparedStatement.setString(6, contact);
 
             preparedStatement.executeUpdate();
 

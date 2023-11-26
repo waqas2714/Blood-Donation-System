@@ -39,6 +39,8 @@ public class RelevantOffersController implements Initializable {
     private TableColumn<relevantOffers, String> columnWebsite;
     @FXML
     private TableColumn<relevantOffers, Date> columnRequestDate;
+    @FXML
+    private TableColumn<relevantOffers, String> columnContact;
     private int hospitalId = 1; // Set your hospital ID here or get it from somewhere
 
 
@@ -49,6 +51,7 @@ public class RelevantOffersController implements Initializable {
         columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         columnWebsite.setCellValueFactory(new PropertyValueFactory<>("website"));
+        columnContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         columnRequestDate.setCellValueFactory(new PropertyValueFactory<>("requestedOn"));
 
         getOffers();
@@ -58,7 +61,7 @@ public class RelevantOffersController implements Initializable {
         try {
             Connection conn = HelloApplication.getConnection(); // Establish your database connection
 
-            String query = "SELECT username, email, website, rbh.blood_type, rbh.quantity, rbh.request_date " +
+            String query = "SELECT username, email, website, rbh.blood_type, rbh.quantity, rbh.request_date, contact " +
                     "FROM users " +
                     "INNER JOIN bloodbanks AS bb ON users.role_id = 4 AND bb.user_id = users.user_id " +
                     "INNER JOIN inventory AS inv ON bb.blood_bank_id = inv.blood_bank_id " +
@@ -88,6 +91,7 @@ public class RelevantOffersController implements Initializable {
                 offer.setWebsite(resultSet.getString("website"));
                 offer.setBloodType(resultSet.getString("blood_type"));
                 offer.setQuantity(resultSet.getInt("quantity"));
+                offer.setContact(resultSet.getString("contact"));
                 offer.setRequestedOn(resultSet.getDate("request_date"));
 
                 offersList.add(offer);

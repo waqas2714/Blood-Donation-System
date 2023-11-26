@@ -9,6 +9,7 @@ public class relevantOffers {
     private String bloodType;
     private Integer quantity;
     private Date requestedOn;
+    private String contact;
 
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
@@ -56,5 +57,13 @@ public class relevantOffers {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }
