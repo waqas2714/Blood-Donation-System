@@ -11,7 +11,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.hospitalMainController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.NgoMainController">
    <children>
       <Label alignment="CENTER" layoutY="41.0" prefHeight="51.0" prefWidth="610.0" text="Blood Donation System">
          <font>
@@ -53,12 +53,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="btnAddDrive" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FF0000;" text="Add Donation Drive" textFill="WHITE">
+            <Button fx:id="BtnAddDrive" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FF0000;" text="Add Donation Drive" textFill="WHITE">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnRemoveDrive" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FFD700;" text="Remove Drive" textFill="WHITE" GridPane.columnIndex="1">
+            <Button fx:id="BtnRemoveDrive" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FFD700;" text="Remove Drive" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Arial" size="23.0" />
                </font>

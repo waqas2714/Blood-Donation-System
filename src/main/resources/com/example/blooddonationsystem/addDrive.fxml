@@ -49,12 +49,12 @@
             <Font name="Times New Roman Bold" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="btnAddDrive" layoutX="269.0" layoutY="353.0" mnemonicParsing="false" style="-fx-background-color: #f73f31;" text="Add" textFill="WHITE">
+      <Button fx:id="btnAddDrive" layoutX="269.0" layoutY="353.0" mnemonicParsing="false" onAction="#AddDriveFunc" style="-fx-background-color: #f73f31;" text="Add" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnBack" layoutY="-2.0" mnemonicParsing="false" style="-fx-background-color: #f73f31;" text="&lt; Back" textFill="WHITE">
+      <Button fx:id="btnBack" layoutY="-2.0" mnemonicParsing="false" onAction="#GoBackToNGOMain" style="-fx-background-color: #f73f31;" text="&lt; Back" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font>
@@ -64,13 +64,13 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="275.0" layoutY="139.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField fx:id="txtFieldLoc" layoutX="275.0" layoutY="139.0" prefHeight="25.0" prefWidth="174.0" promptText="Enter Location" />
       <Label layoutX="161.0" layoutY="200.0" text="Date">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <DatePicker layoutX="275.0" layoutY="201.0" />
+      <DatePicker fx:id="DateBox" layoutX="275.0" layoutY="201.0" promptText="Select Date" />
       <Label layoutX="161.0" layoutY="262.0" text="Time">
          <font>
             <Font name="System Bold" size="18.0" />
