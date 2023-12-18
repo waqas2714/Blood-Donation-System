@@ -5,26 +5,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: FF0000; -fx-border-color: FF0000;" text="Select Report Type" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: FF0000; -fx-border-color: FF0000;" text="Select Report Type" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.viewRequests">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnBloodTypeBank" layoutX="46.0" layoutY="146.0" mnemonicParsing="false" onAction="#goToBlood" style="-fx-background-color: FF0000;" text="BloodType" textFill="WHITE">
+            <Button fx:id="btnBloodTypeBank" layoutX="87.0" layoutY="146.0" mnemonicParsing="false" onAction="#goToBlood" style="-fx-background-color: FF0000;" text="BloodType" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button fx:id="btnHospitalBank" layoutX="251.0" layoutY="146.0" mnemonicParsing="false" onAction="#goToHospital" style="-fx-background-color: FF0000;" text="Hospital" textAlignment="JUSTIFY" textFill="WHITE">
+            <Button fx:id="btnHospitalBank" layoutX="394.0" layoutY="146.0" mnemonicParsing="false" onAction="#gotToHospital" style="-fx-background-color: FF0000;" text="Hospital" textAlignment="JUSTIFY" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button fx:id="btnLocationBank" layoutX="434.0" layoutY="146.0" mnemonicParsing="false" onAction="#goToLocation" style="-fx-background-color: FF0000;" text="Location" textFill="WHITE">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnBackBank" layoutX="5.0" layoutY="297.0" mnemonicParsing="false" onAction="#goToBack" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: FF0000;" text="Back" textFill="WHITE">
+            <Button fx:id="btnBackBank" layoutX="5.0" layoutY="297.0" mnemonicParsing="false" onAction="#gotToBack" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: FF0000;" text="Back" textFill="WHITE">
                <font>
                   <Font size="11.0" />
                </font>

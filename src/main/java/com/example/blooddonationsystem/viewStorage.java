@@ -1,7 +1,8 @@
+
 package com.example.blooddonationsystem;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.event.ActionEvent;
+import javafx.fxml.*;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -12,8 +13,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -35,10 +40,14 @@ public class viewStorage implements Initializable {
     @FXML
     public TableColumn<Map<String, String>, String> quantityBank;
 
+    @FXML
+    private Button btnBack;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeTable();
     }
+
 
     private void initializeTable() {
         bloodtypeBank.setCellValueFactory(cellData -> {
@@ -85,6 +94,26 @@ public class viewStorage implements Initializable {
 
         return data;
     }
+
+    @FXML
+    public void goToBack(ActionEvent event){
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("bankMain.fxml"));
+            Parent root = loader.load();
+
+            // Get the stage information
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+    }
 }
+
 
 

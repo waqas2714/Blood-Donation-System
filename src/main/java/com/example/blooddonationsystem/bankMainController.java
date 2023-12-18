@@ -16,6 +16,8 @@ public class bankMainController implements Initializable {
 
     @FXML
     private Button btnViewRequestBank;
+    @FXML
+    private Button btnLogOut;
 
     @FXML
     private Button btnViewStorageBank;
@@ -41,6 +43,25 @@ public class bankMainController implements Initializable {
             stage.show();
         } catch (Exception error) {
             error.printStackTrace(); // Handle the exception appropriately
+        }
+    }
+
+    @FXML
+    public void goToLogin(ActionEvent event){
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+
+            // Get the stage information
+            Stage stage = (Stage) btnLogOut.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
         }
     }
     @FXML
