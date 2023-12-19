@@ -39,16 +39,6 @@ public class viewStorage implements Initializable {
     @FXML
     private Integer bloodBankID;
 
-    /*@FXML
-    public void setBloodBankID(Integer bankID){
-        this.bloodBankID = bankID;
-    }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        tableColumnBloodType.setCellValueFactory(new PropertyValueFactory<>("bloodType"));
-        tableColumnAmount.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        getInventory();
-    }*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Leave this method empty for now
@@ -108,7 +98,8 @@ public class viewStorage implements Initializable {
             // Load the login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bankMain.fxml"));
             Parent root = loader.load();
-
+            bankMainController secondController = loader.getController();
+            secondController.setBloodBankID(bloodBankID);
             // Get the stage information
             Stage stage = (Stage) btnBack.getScene().getWindow();
             Scene scene = new Scene(root);

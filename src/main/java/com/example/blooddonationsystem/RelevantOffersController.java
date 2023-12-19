@@ -41,11 +41,23 @@ public class RelevantOffersController implements Initializable {
     private TableColumn<relevantOffers, Date> columnRequestDate;
     @FXML
     private TableColumn<relevantOffers, String> columnContact;
-    private int hospitalId = 1; // Set your hospital ID here or get it from somewhere
+    @FXML
+    private Integer hospitalId;
+
+    @FXML
+    public void setHospitalID(Integer bankID){
+        this.hospitalId = bankID;
+        System.out.println("relevant reqs hospID: "+ hospitalId);
+        initializetable();
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+
+    public void initializetable(){
+
         columnBloodBank.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnBloodType.setCellValueFactory(new PropertyValueFactory<>("bloodType"));
         columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -112,6 +124,8 @@ public class RelevantOffersController implements Initializable {
             // Load the login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hospitalMain.fxml"));
             Parent root = loader.load();
+            hospitalMainController secondController = loader.getController();
+            secondController.setHospitalID(hospitalId);
 
             // Get the stage information
             Stage stage = (Stage) btnBack.getScene().getWindow();

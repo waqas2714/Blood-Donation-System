@@ -28,11 +28,15 @@ public class PlaceOfferController implements Initializable {
     private TextField txtAmount;
     @FXML
     private DatePicker datePickerNeededBefore;
-    private int hospital_id;
+    @FXML
+    private Integer hospitalId;
 
-    public PlaceOfferController() {
-        hospital_id = 1;
+    @FXML
+    public void setHospitalID(Integer bankID){
+        this.hospitalId = bankID;
+        System.out.println("place req hospID: "+ hospitalId);
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,7 +69,7 @@ public class PlaceOfferController implements Initializable {
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
 
                     // Set values to the query parameters
-                    preparedStatement.setInt(1, hospital_id); // Assuming hospital_id is set elsewhere
+                    preparedStatement.setInt(1, hospitalId); // Assuming hospital_id is set elsewhere
                     preparedStatement.setString(2, bloodType);
                     preparedStatement.setInt(3, amount);
                     preparedStatement.setDate(4, java.sql.Date.valueOf(LocalDate.now())); // Set current date for request_date
@@ -119,6 +123,8 @@ public class PlaceOfferController implements Initializable {
             // Load the login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hospitalMain.fxml"));
             Parent root = loader.load();
+            hospitalMainController secondController = loader.getController();
+            secondController.setHospitalID(hospitalId);
 
             // Get the stage information
             Stage stage = (Stage) btnBack.getScene().getWindow();

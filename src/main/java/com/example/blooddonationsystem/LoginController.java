@@ -144,7 +144,27 @@ public class LoginController implements Initializable {
             case "2":
                 //write sql to get the hospital id
                 // Load hospitalMain.fxml for role 2 (Hospital)
-                loadFXML("hospitalMain.fxml");
+                //loadFXML("hospitalMain.fxml");
+                Integer hospid = 0;
+                emailCheckStatement = connection.prepareStatement("SELECT hospital_id FROM hospitals WHERE user_id = ?");
+                emailCheckStatement.setInt(1, user_id);
+                emailCheckResult = emailCheckStatement.executeQuery();
+                if(emailCheckResult.next()){
+                    hospid = emailCheckResult.getInt("hospital_id");
+                    System.out.println("LOGIN hospID: "+ hospid);
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hospitalMain.fxml"));
+                        Parent root = loader.load();
+
+                        hospitalMainController secondController = loader.getController();
+                        secondController.setHospitalID(hospid);
+                        // Show the second scene
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }}
                 break;
             case "3":
                 //write sql to get the ngo id

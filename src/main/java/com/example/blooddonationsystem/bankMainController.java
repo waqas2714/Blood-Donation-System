@@ -24,6 +24,7 @@ public class bankMainController implements Initializable {
     @FXML
     private Integer bloodBankID;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -31,6 +32,7 @@ public class bankMainController implements Initializable {
     public void setBloodBankID(Integer bankID){
         this.bloodBankID = bankID;
     }
+
     @FXML
     public void gotoViewRequest(ActionEvent e) {
         try {
