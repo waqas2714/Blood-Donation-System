@@ -9,12 +9,12 @@
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnBloodTypeBank" layoutX="87.0" layoutY="146.0" mnemonicParsing="false" onAction="#goToBlood" style="-fx-background-color: FF0000;" text="BloodType" textFill="WHITE">
+            <Button fx:id="btnBloodTypeBank" layoutX="11.0" layoutY="146.0" mnemonicParsing="false" onAction="#goToBlood" style="-fx-background-color: FF0000;" text="BloodType" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button fx:id="btnHospitalBank" layoutX="394.0" layoutY="146.0" mnemonicParsing="false" onAction="#gotToHospital" style="-fx-background-color: FF0000;" text="Hospital" textAlignment="JUSTIFY" textFill="WHITE">
+            <Button fx:id="btnHospitalBank" layoutX="222.0" layoutY="146.0" mnemonicParsing="false" onAction="#gotToHospital" style="-fx-background-color: FF0000;" text="Hospital" textAlignment="JUSTIFY" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
@@ -22,6 +22,11 @@
             <Button fx:id="btnBackBank" layoutX="5.0" layoutY="297.0" mnemonicParsing="false" onAction="#gotToBack" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: FF0000;" text="Back" textFill="WHITE">
                <font>
                   <Font size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnAllRequests" layoutX="418.0" layoutY="149.0" mnemonicParsing="false" onAction="#gotToAll" prefHeight="53.0" prefWidth="142.0" style="-fx-background-color: ff0000;" text="All Requests" textAlignment="JUSTIFY" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
                </font>
             </Button>
          </children>

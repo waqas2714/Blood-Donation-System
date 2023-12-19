@@ -1,10 +1,11 @@
 package com.example.blooddonationsystem;
 
 
-public class allPendingRequests {
+public class allBankRequests {
     private Integer requestId;
-    private String bloodType;
+    private Integer hospitalId;
     private Integer quantity;
+    private String bloodType;
 
     public Integer getRequestId() {
         return requestId;
@@ -12,6 +13,14 @@ public class allPendingRequests {
 
     public void setRequestId(Integer requestId) {
         this.requestId = requestId;
+    }
+
+    public String getBloodType(){
+        return this.bloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
     }
 
     public Integer getQuantity() {
@@ -22,11 +31,11 @@ public class allPendingRequests {
         this.quantity = quantity;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public Integer getHospitalId() {
+        return this.hospitalId;
     }
 
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
+    public void setHospitalId(Integer hospid) {
+        this.hospitalId = hospid;
     }
 }

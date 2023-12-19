@@ -9,6 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.application.Application;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,25 +41,14 @@ public class viewRequests {
     private Button btnHospitalBank;
     @FXML
     private Button btnBackBank;
+    @FXML
+    private Button  btnAllRequests;
+private static Integer hospID;
+private static String selectedBloodType;
+    public static Integer getHospID(){
+        return hospID;
+    }
 
-    /*@FXML
-    public void gotToHospital(ActionEvent e){
-        try {
-            // Load the login.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("reportHospital.fxml"));
-            Parent root = loader.load();
-
-            // Get the stage information
-            Stage stage = (Stage) btnHospitalBank.getScene().getWindow();
-            Scene scene = new Scene(root);
-
-            // Set the new scene onto the stage
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception ex) {
-            ex.printStackTrace(); // Handle the exception appropriately
-        }
-    }*/
     public static List<Integer> getDistinctHospitalIds() throws SQLException {
         List<Integer> hospitalIds = new ArrayList<>();
 
@@ -113,13 +110,9 @@ public class viewRequests {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("reportHospital.fxml"));
                 try {
                     Parent root = loader.load();
-
-                    // Get the controller associated with the loaded FXML
                     ReportHospital reportHospitalController = loader.getController();
-
-                    // Set the hospital ID in the controller
-                    int hospid = Integer.parseInt(enteredHospitalId);
-                    reportHospitalController.setHospitalId(hospid);
+                    hospID = Integer.parseInt(enteredHospitalId);
+                    reportHospitalController.getAllOffers(hospID);
 
                     // Get the stage information
                     Stage stage = (Stage) btnHospitalBank.getScene().getWindow();
@@ -131,7 +124,7 @@ public class viewRequests {
                 } catch (Exception ex) {
                     ex.printStackTrace(); // Handle the exception appropriately
                 }
-            } else {
+            }else {
                 // Show an error message for an invalid hospital ID
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Invalid Hospital ID");
@@ -160,21 +153,75 @@ public class viewRequests {
         }
     }
 
-
     @FXML
-    private void goToBlood(ActionEvent event) {
+    public void gotToAll(ActionEvent e){
         try {
             // Load the login.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("reportBloodType.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("bankAllRequests.fxml"));
             Parent root = loader.load();
 
             // Get the stage information
-            Stage stage = (Stage) btnBloodTypeBank.getScene().getWindow();
+            Stage stage = (Stage) btnAllRequests.getScene().getWindow();
             Scene scene = new Scene(root);
 
             // Set the new scene onto the stage
             stage.setScene(scene);
             stage.show();
+        } catch (Exception ex) {
+            ex.printStackTrace(); // Handle the exception appropriately
+        }
+    }
+
+
+    @FXML
+    private void goToBlood(ActionEvent event) {
+        try {
+            // Create a ChoiceBox with blood types
+            ChoiceBox<String> bloodTypeChoiceBox = new ChoiceBox<>();
+            bloodTypeChoiceBox.getItems().addAll(
+                    "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"
+            );
+
+            // Create a GridPane to layout the components
+            GridPane gridPane = new GridPane();
+            gridPane.add(new Label("Select Blood Type:"), 0, 0);
+            gridPane.add(bloodTypeChoiceBox, 1, 0);
+
+            // Create an Alert
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Blood Type Selection");
+            alert.setHeaderText(null);
+            alert.getDialogPane().setContent(gridPane);
+
+            // Show the alert and get the user's choice
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    selectedBloodType = bloodTypeChoiceBox.getValue();
+                    System.out.println("Selected Blood Type: " + selectedBloodType);///function to pass blood
+                }
+            });
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("reportBloodType.fxml"));
+            try {
+
+                Parent root = loader.load();
+
+                // Get the controller instance from the FXMLLoader
+                ReportBloodType reportBloodTypeController = loader.getController();
+                reportBloodTypeController.getAllOffers(selectedBloodType);
+
+                // Get the stage information
+                Stage stage = (Stage) btnBloodTypeBank.getScene().getWindow();
+                Scene scene = new Scene(root);
+
+                // Set the new scene onto the stage
+                stage.setScene(scene);
+                stage.show();
+            } catch (Exception ex) {
+                ex.printStackTrace(); // Handle the exception appropriately
+            }
+
         } catch (Exception e) {
             e.printStackTrace(); // Handle the exception appropriately
         }

@@ -23,46 +23,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ReportBloodType implements Initializable{
+public class BankAllRequests implements Initializable{
     @FXML
     private Button btnBack;
     @FXML
-    private TableView<bloodRequestData> table;
+    private TableView<allBankRequests> table;
     @FXML
-    private TableColumn<bloodRequestData, Integer> tableColumnRequestId;
+    private TableColumn<allBankRequests, Integer> tableColumnRequestId;
     @FXML
-    private TableColumn<bloodRequestData, Integer> tableColumnHospitalId;
+    private TableColumn<allBankRequests, Integer> tableColumnHospitalId;
     @FXML
-    private TableColumn<bloodRequestData, Integer> tableColumnAmount;
+    private TableColumn<allBankRequests, Integer> tableColumnAmount;
+    @FXML
+    private TableColumn<allBankRequests, String> tableColumnBloodType;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tableColumnRequestId.setCellValueFactory(new PropertyValueFactory<>("requestId"));
         tableColumnHospitalId.setCellValueFactory(new PropertyValueFactory<>("hospitalId"));
+        tableColumnBloodType.setCellValueFactory(new PropertyValueFactory<>("bloodType"));
         tableColumnAmount.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        getAllOffers();
     }
 
-    public void getAllOffers(String entblood) {
+
+    public void getAllOffers() {
         try {
             Connection conn = HelloApplication.getConnection();
-            String sql = "CALL GetRequestsByBlood(?)";
+            String sql = "CALL GetAllRequests()";
 
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, entblood);
 
             ResultSet resultSet = statement.executeQuery();
 
 //            List<allPendingRequests> requestsList = new ArrayList<>();
 
-            List<bloodRequestData> requestsList = new ArrayList<>();
-            ObservableList<bloodRequestData> observableList = FXCollections.observableArrayList(requestsList);
+            List<allBankRequests> requestsList = new ArrayList<>();
+            ObservableList<allBankRequests> observableList = FXCollections.observableArrayList(requestsList);
             table.setItems(observableList);
 
             while (resultSet.next()) {
-                bloodRequestData request= new bloodRequestData();
+                allBankRequests request= new allBankRequests();
                 request.setRequestId(resultSet.getInt("request_id"));
                 request.setHospitalId(resultSet.getInt("hospital_id"));
                 request.setQuantity(resultSet.getInt("quantity"));
+                request.setBloodType(resultSet.getString("blood_type"));
                 requestsList.add(request);
             }
 
@@ -73,9 +78,6 @@ public class ReportBloodType implements Initializable{
             e.printStackTrace(); // Handle potential exceptions more gracefully in your application
         }
     }
-
-
-
     @FXML
     public void goToViewRequests(ActionEvent event){
         try {
@@ -94,4 +96,5 @@ public class ReportBloodType implements Initializable{
             e.printStackTrace(); // Handle the exception appropriately
         }
     }
+
 }

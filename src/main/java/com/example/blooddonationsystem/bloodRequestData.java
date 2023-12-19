@@ -1,9 +1,9 @@
 package com.example.blooddonationsystem;
 
 
-public class allPendingRequests {
+public class bloodRequestData {
     private Integer requestId;
-    private String bloodType;
+    private Integer hospitalId;
     private Integer quantity;
 
     public Integer getRequestId() {
@@ -22,11 +22,11 @@ public class allPendingRequests {
         this.quantity = quantity;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public Integer getHospitalId() {
+        return this.hospitalId;
     }
 
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
+    public void setHospitalId(Integer hospid) {
+        this.hospitalId = hospid;
     }
 }

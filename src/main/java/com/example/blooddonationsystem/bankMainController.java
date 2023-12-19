@@ -21,12 +21,16 @@ public class bankMainController implements Initializable {
 
     @FXML
     private Button btnViewStorageBank;
-
+    @FXML
+    private Integer bloodBankID;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-
+    @FXML
+    public void setBloodBankID(Integer bankID){
+        this.bloodBankID = bankID;
+    }
     @FXML
     public void gotoViewRequest(ActionEvent e) {
         try {
@@ -68,9 +72,11 @@ public class bankMainController implements Initializable {
     public void gotoViewStorage(ActionEvent e) {
         try {
             // Load the signupMain.fxml file
+            System.out.println("BANKMAIN bloodbankID: "+ bloodBankID);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewStorage.fxml"));
             Parent root = loader.load();
-
+            viewStorage secondController = loader.getController();
+            secondController.setBloodBankID(bloodBankID);
             // Get the stage information
             Stage stage = (Stage) btnViewStorageBank.getScene().getWindow();
             Scene scene = new Scene(root);
