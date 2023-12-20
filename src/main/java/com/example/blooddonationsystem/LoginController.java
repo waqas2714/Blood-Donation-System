@@ -137,9 +137,9 @@ public class LoginController implements Initializable {
 
         switch (roleId) {
             case "1":
-                //write sql to get the donor id
+
                 // Load donorMain.fxml for role 1 (Donor)
-                loadFXML("donorMain.fxml");
+                loadFXML("DonorViewDrives.fxml");
                 break;
             case "2":
                 //write sql to get the hospital id
@@ -169,7 +169,27 @@ public class LoginController implements Initializable {
             case "3":
                 //write sql to get the ngo id
                 // Load ngoMain.fxml for role 3 (NGO)
-                loadFXML("ngoMain.fxml");
+                //loadFXML("ngoMain.fxml");
+                Integer ngoid = 0;
+                emailCheckStatement = connection.prepareStatement("SELECT ngo_id FROM ngos WHERE user_id = ?");
+                emailCheckStatement.setInt(1, user_id);
+                emailCheckResult = emailCheckStatement.executeQuery();
+                if(emailCheckResult.next()){
+                    ngoid = emailCheckResult.getInt("ngo_id");
+                    System.out.println("LOGIN ngoID: "+ ngoid);
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("ngoMain.fxml"));
+                        Parent root = loader.load();
+
+                        NgoMainController secondController = loader.getController();
+                        secondController.setNgoID(ngoid);
+                        // Show the second scene
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }}
                 break;
             case "4":
                 //loadFXML("bankMain.fxml");

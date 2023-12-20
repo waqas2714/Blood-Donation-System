@@ -1,4 +1,5 @@
-////AHMAD CODE....USE TO APPROVE DATA IN VIEW ALL REQUESTS
+/////AHMAD'S CODE
+
 package com.example.blooddonationsystem;
 
 import javafx.event.ActionEvent;
@@ -23,8 +24,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-public class RemoveDriveController implements Initializable {
+public class DonorViewDrivesController implements Initializable {
 
     @FXML
     private TableView<AddDrive> DriveTable;
@@ -36,16 +36,7 @@ public class RemoveDriveController implements Initializable {
     private TableColumn<AddDrive, String> columnDriveLocation;
 
     @FXML
-    private Button btnRemove;
-
-    @FXML
-    private Label Lb1;
-
-    @FXML
     private Button btnBack;
-    @FXML
-    private Integer ngoID;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,23 +47,18 @@ public class RemoveDriveController implements Initializable {
         columnDriveLocation.setCellValueFactory(new PropertyValueFactory<>("driveLocation"));
 
         try {
-            getDrives();
+            getDrives1();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    public void setNgoID(Integer bankID){
-        this.ngoID = bankID;
-        System.out.println("AddDrives ngoID: "+ ngoID);
-    }
-    public void getDrives() throws SQLException {
+
+    public void getDrives1() throws SQLException {
 
         Connection conn = HelloApplication.getConnection(); // Establish your database connection
 
         String Query = "SELECT drive_name, city from " +
-                "donationdrives JOIN locations ON donationdrives.location_id = locations.location_id"+
-                " WHERE organizer_id = 2";
+                "donationdrives JOIN locations ON donationdrives.location_id = locations.location_id";
 
         PreparedStatement statement = conn.prepareStatement(Query);
         ResultSet resultSet = statement.executeQuery();
@@ -91,52 +77,26 @@ public class RemoveDriveController implements Initializable {
 
     }
 
-    public void remove(ActionEvent event) throws SQLException {
-
-        AddDrive SelectedDrive = DriveTable.getSelectionModel().getSelectedItem();
-
-        if(SelectedDrive != null){
-
-            removeItemfromDatabase(SelectedDrive);
-            DriveTable.getItems().remove(SelectedDrive);
-
-        }
-
-        else{
-
-            Lb1.setText("kindly select an item to remove.");
-
-        }
-    }
-
-    public void removeItemfromDatabase(AddDrive item) throws SQLException {
-        Connection conn = HelloApplication.getConnection(); // Establish your database connection
-
-        PreparedStatement statement = conn.prepareStatement("DELETE FROM donationdrives where drive_name = ?");
-
-        statement.setString(1, item.getDriveName());
-        statement.executeUpdate();
-    }
-
-
-    public void GoBackToNGOMain(ActionEvent event)
-    {
+    public void GoBackTologin(ActionEvent event) {
         // Load the ngoMain.fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ngoMain.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        NgoMainController secondController = loader.getController();
-        secondController.setNgoID(ngoID);
-        // Get the stage information
-        Stage stage = (Stage) btnBack.getScene().getWindow();
-        Scene scene = new Scene(root);
+        try{FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();;
+            //try {
+            //root = loader.load();
+            //} catch (IOException e) {
+            //throw new RuntimeException(e);
+            //}
 
-        // Set the new scene onto the stage
-        stage.setScene(scene);
-        stage.show();
+            // Get the stage information
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        }catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
     }
 }

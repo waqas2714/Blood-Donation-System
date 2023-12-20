@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.RemoveRequestsController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.RemoveDriveController">
    <children>
       <Label alignment="CENTER" layoutY="20.0" prefHeight="51.0" prefWidth="610.0" text="Blood Donation System">
          <font>
@@ -48,21 +48,26 @@
             <Font name="Times New Roman Bold" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="btnRemoveDrive" layoutX="258.0" layoutY="353.0" mnemonicParsing="false" style="-fx-background-color: #f73f31;" text="Remove" textFill="WHITE">
+      <Button fx:id="btnRemove" layoutX="258.0" layoutY="353.0" mnemonicParsing="false" onAction="#remove" style="-fx-background-color: #f73f31;" text="Remove" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnBack" layoutY="-2.0" mnemonicParsing="false" style="-fx-background-color: #f73f31;" text="&lt; Back" textFill="WHITE">
+      <Button fx:id="btnBack" layoutY="-2.0" mnemonicParsing="false" onAction="#GoBackToNGOMain" style="-fx-background-color: #f73f31;" text="&lt; Back" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font>
       </Button>
-      <TableView layoutX="30.0" layoutY="119.0" prefHeight="200.0" prefWidth="550.0">
+      <TableView fx:id="DriveTable" layoutX="30.0" layoutY="119.0" prefHeight="200.0" prefWidth="550.0">
          <columns>
-            <TableColumn prefWidth="272.0" text="Name" />
-            <TableColumn prefWidth="277.0" text="Location" />
+            <TableColumn fx:id="columnDriveName" prefWidth="272.0" text="Name" />
+            <TableColumn fx:id="columnDriveLocation" prefWidth="277.0" text="Location" />
          </columns>
       </TableView>
+      <Label fx:id="Lb1" layoutX="1.0" layoutY="345.0" prefHeight="42.0" prefWidth="238.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
