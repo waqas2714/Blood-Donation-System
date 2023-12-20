@@ -21,10 +21,32 @@ public class NgoMainController {
     private Button BtnRemoveDrive;
     @FXML
     private Integer ngoID;
+
+    @FXML
+    private Button btnLogOut;
     @FXML
     public void setNgoID(Integer bankID){
         this.ngoID = bankID;
         System.out.println("ngoMain ngoID: "+ ngoID);
+    }
+
+    @FXML
+    public void goToLogin(ActionEvent event){
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+
+            // Get the stage information
+            Stage stage = (Stage) btnLogOut.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
     }
 
 
