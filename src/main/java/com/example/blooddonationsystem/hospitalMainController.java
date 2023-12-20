@@ -19,11 +19,32 @@ public class hospitalMainController {
     private Button btnMyRequests;
     @FXML
     private Integer hospitalID;
+    @FXML
+    private Button btnLogOut;
 
     @FXML
     public void setHospitalID(Integer bankID){
         this.hospitalID = bankID;
         System.out.println("main hospID: "+ hospitalID);
+    }
+
+    @FXML
+    public void goToLogin(ActionEvent event){
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+
+            // Get the stage information
+            Stage stage = (Stage) btnLogOut.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
     }
 
     public void goToPage(ActionEvent event){
