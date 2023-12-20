@@ -53,12 +53,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="BtnAddDrive" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FF0000;" text="Add Donation Drive" textFill="WHITE">
+            <Button fx:id="BtnAddDrive" mnemonicParsing="false" onAction="#GoToAddDrive" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FF0000;" text="Add Donation Drive" textFill="WHITE">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="BtnRemoveDrive" mnemonicParsing="false" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FFD700;" text="Remove Drive" textFill="WHITE" GridPane.columnIndex="1">
+            <Button fx:id="BtnRemoveDrive" mnemonicParsing="false" onAction="#GoToRemoveDrive" prefHeight="112.0" prefWidth="208.0" style="-fx-background-color: FFD700;" text="Remove Drive" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Arial" size="23.0" />
                </font>

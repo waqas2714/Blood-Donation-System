@@ -54,7 +54,7 @@
             <TableColumn fx:id="columnDriveLocation" prefWidth="219.0" text="Drive Location" />
          </columns>
       </TableView>
-      <Button fx:id="btnBack" layoutY="-2.0" mnemonicParsing="false" onAction="#GoBackTologin" style="-fx-background-color: #f73f31;" text="&lt; Back" textFill="WHITE">
+      <Button fx:id="btnBack" layoutY="-2.0" mnemonicParsing="false" onAction="#GoBackTologin" style="-fx-background-color: #f73f31;" text="&lt; Logout" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font>

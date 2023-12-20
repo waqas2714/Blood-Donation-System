@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
 
         updateApprovalState();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signupOther.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Blood Donation System");
         stage.setScene(scene);

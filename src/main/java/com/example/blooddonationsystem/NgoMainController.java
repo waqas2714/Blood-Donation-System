@@ -53,7 +53,7 @@ public class NgoMainController {
         }
 
         // Get the stage information
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); //BtnRemoveDrive.getScene().getWindow();
+        Stage stage = (Stage) BtnRemoveDrive.getScene().getWindow(); //(Stage) ((Node)event.getSource()).getScene().getWindow()
         Scene scene = new Scene(root);
 
         // Set the new scene onto the stage

@@ -13,6 +13,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.blooddonationsystem.AddDriveController">
    <children>
+      <ChoiceBox fx:id="choiceBoxCity" layoutX="275.0" layoutY="132.0" prefHeight="25.0" prefWidth="174.0" />
       <Label alignment="CENTER" layoutY="20.0" prefHeight="51.0" prefWidth="610.0" text="Blood Donation System">
          <font>
             <Font name="Times New Roman" size="46.0" />
@@ -59,25 +60,18 @@
             <Font name="Arial Bold" size="14.0" />
          </font>
       </Button>
-      <Label layoutX="161.0" layoutY="138.0" text="Location">
+      <Label layoutX="161.0" layoutY="131.0" text="Location">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtFieldLoc" layoutX="275.0" layoutY="139.0" prefHeight="25.0" prefWidth="174.0" promptText="Enter Location" />
+      <TextField fx:id="txtFieldLoc" layoutX="275.0" layoutY="132.0" prefHeight="25.0" prefWidth="174.0" promptText="Enter Location" />
       <Label layoutX="161.0" layoutY="200.0" text="Date">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <DatePicker fx:id="DateBox" layoutX="275.0" layoutY="201.0" promptText="Select Date" />
-      <Label layoutX="160.0" layoutY="287.0" text="Time">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <ChoiceBox fx:id="comboHours" layoutX="275.0" layoutY="288.0" prefHeight="25.0" prefWidth="83.0" />
-      <ChoiceBox fx:id="comboMinutes" layoutX="366.0" layoutY="288.0" prefHeight="25.0" prefWidth="83.0" />
       <Label layoutX="-44.0" layoutY="325.0" prefHeight="17.0" prefWidth="34.0" text="Label" />
       <Label layoutX="161.0" layoutY="236.0" prefHeight="27.0" prefWidth="83.0" text="End Date">
          <font>
@@ -85,5 +79,16 @@
          </font>
       </Label>
       <DatePicker fx:id="EndDateBox" layoutX="275.0" layoutY="237.0" promptText="Select End Date" />
+      <Label layoutX="161.0" layoutY="165.0" text="Name">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFieldName" layoutX="275.0" layoutY="166.0" prefHeight="25.0" prefWidth="174.0" promptText="Enter Name" />
+      <Label fx:id="PrmtLbl" alignment="CENTER" layoutX="-1.0" layoutY="301.0" prefHeight="33.0" prefWidth="613.0" textFill="RED">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

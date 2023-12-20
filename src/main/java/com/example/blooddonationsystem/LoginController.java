@@ -99,8 +99,8 @@ public class LoginController implements Initializable {
     private void loadFXMLForRole(String roleId) {
         switch (roleId) {
             case "1":
-                // Load donorMain.fxml for role 1 (Donor)
-                loadFXML("donorMain.fxml");
+                // Load DonorViewDrives.fxml for role 1 (Donor)
+                loadFXML("DonorViewDrives.fxml");
                 break;
             case "2":
                 // Load hospitalMain.fxml for role 2 (Hospital)
