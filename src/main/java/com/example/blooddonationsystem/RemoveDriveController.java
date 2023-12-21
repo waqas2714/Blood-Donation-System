@@ -43,12 +43,17 @@ public class RemoveDriveController implements Initializable {
 
     @FXML
     private Button btnBack;
+
     @FXML
     private Integer ngoID;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    public void secondtable(){
         // Set up the columnDriveName to display the drive name
         columnDriveName.setCellValueFactory(new PropertyValueFactory<>("driveName"));
 
@@ -61,11 +66,7 @@ public class RemoveDriveController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    public void setNgoID(Integer bankID){
-        this.ngoID = bankID;
-        System.out.println("AddDrives ngoID: "+ ngoID);
-    }
+
     public void getDrives() throws SQLException {
 
         Connection conn = HelloApplication.getConnection(); // Establish your database connection
@@ -117,6 +118,13 @@ public class RemoveDriveController implements Initializable {
 
         statement.setString(1, item.getDriveName());
         statement.executeUpdate();
+    }
+
+    @FXML
+    public void setNgoID(Integer bankID){
+        this.ngoID = bankID;
+        System.out.println("removeDrives ngoID: "+ ngoID);
+        secondtable();
     }
 
 

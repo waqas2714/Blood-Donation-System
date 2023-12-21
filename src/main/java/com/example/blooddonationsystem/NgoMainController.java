@@ -75,24 +75,23 @@ public class NgoMainController {
     public void GoToRemoveDrive(ActionEvent event)
     {
         // Load the ngoMain.fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("removeDrive.fxml"));
-        Parent root = null;
         try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("removeDrive.fxml"));
+            Parent root = loader.load();
+            RemoveDriveController secondcontroller = loader.getController();
+            secondcontroller.setNgoID(ngoID);
+
+
+            // Get the stage information
+            Stage stage = (Stage) BtnRemoveDrive.getScene().getWindow(); //(Stage) ((Node)event.getSource()).getScene().getWindow()
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-        RemoveDriveController secondcontroller = loader.getController();
-        secondcontroller.setNgoID(ngoID);
-
-        // Get the stage information
-        Stage stage = (Stage) BtnRemoveDrive.getScene().getWindow(); //(Stage) ((Node)event.getSource()).getScene().getWindow()
-        Scene scene = new Scene(root);
-
-        // Set the new scene onto the stage
-        stage.setScene(scene);
-        stage.show();
     }
-
-
 }

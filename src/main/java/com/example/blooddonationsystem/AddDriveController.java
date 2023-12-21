@@ -117,8 +117,8 @@ public class AddDriveController implements Initializable {
             statement1.setString(1, Name);
             statement1.setDate(2, java.sql.Date.valueOf(Date));
             statement1.setDate(3, java.sql.Date.valueOf(endDate));
-            statement1.setInt(4, ngoID);
-            statement1.setInt(5, 2);
+            statement1.setInt(4, loc_id_test);
+            statement1.setInt(5, ngoID);
 
 
             statement1.executeUpdate();
