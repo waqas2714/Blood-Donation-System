@@ -19,18 +19,46 @@ public class NgoMainController {
 
     @FXML
     private Button BtnRemoveDrive;
+    @FXML
+    private Integer ngoID;
+
+    @FXML
+    private Button btnLogOut;
+    @FXML
+    public void setNgoID(Integer bankID){
+        this.ngoID = bankID;
+        System.out.println("ngoMain ngoID: "+ ngoID);
+    }
+
+    @FXML
+    public void goToLogin(ActionEvent event){
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+
+            // Get the stage information
+            Stage stage = (Stage) btnLogOut.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+    }
 
 
     public void GoToAddDrive(ActionEvent event)
     {
         // Load the AddDrive.fxml file
+        try{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addDrive.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        //add object of AddDrives
+        Parent root = loader.load();
+        AddDriveController secondController = loader.getController();
+        secondController.setNgoID(ngoID);
 
         // Get the stage information
         Stage stage = (Stage) BtnAddDrive.getScene().getWindow();
@@ -39,6 +67,9 @@ public class NgoMainController {
         // Set the new scene onto the stage
         stage.setScene(scene);
         stage.show();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void GoToRemoveDrive(ActionEvent event)
@@ -51,6 +82,8 @@ public class NgoMainController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        RemoveDriveController secondcontroller = loader.getController();
+        secondcontroller.setNgoID(ngoID);
 
         // Get the stage information
         Stage stage = (Stage) BtnRemoveDrive.getScene().getWindow(); //(Stage) ((Node)event.getSource()).getScene().getWindow()

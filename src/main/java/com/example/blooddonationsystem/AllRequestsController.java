@@ -37,18 +37,29 @@ public class AllRequestsController implements Initializable {
     private TableColumn<allHospitalRequests, Date> tableColumnRequestDate;
     @FXML
     private TableColumn<allHospitalRequests, String> tableColumnStatus;
-    private int hospitalId = 1;
+    @FXML
+    private Integer hospitalId;
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+    public void initialized(){
         tableColumnRequestId.setCellValueFactory(new PropertyValueFactory<>("requestId"));
         tableColumnBloodType.setCellValueFactory(new PropertyValueFactory<>("bloodType"));
         tableColumnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         tableColumnRequestDate.setCellValueFactory(new PropertyValueFactory<>("dateRequested"));
         tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        getAllOffers();
+        if (hospitalId != null) {
+            getAllOffers();
+        }
+    }
+    @FXML
+    public void setHospitalID(Integer bankID){
+        this.hospitalId = bankID;
+        System.out.println("all reqs hospID: "+ hospitalId);
+        initialized();
     }
 
 
@@ -92,6 +103,8 @@ public class AllRequestsController implements Initializable {
             // Load the login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hospitalMain.fxml"));
             Parent root = loader.load();
+            hospitalMainController secondController = loader.getController();
+            secondController.setHospitalID(hospitalId);
 
             // Get the stage information
             Stage stage = (Stage) btnBack.getScene().getWindow();

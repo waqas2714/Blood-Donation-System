@@ -1,3 +1,4 @@
+//AHMED'S CODE
 package com.example.blooddonationsystem;
 
 public class AddDrive {
@@ -29,9 +30,9 @@ public class AddDrive {
             return driveLocation;
         }
 
-        // Setter for driveLocation
-        public void setDriveLocation(String driveLocation) {
-            this.driveLocation = driveLocation;
-        }
+    // Setter for driveLocation
+    public void setDriveLocation(String driveLocation) {
+        this.driveLocation = driveLocation;
+    }
 
 }

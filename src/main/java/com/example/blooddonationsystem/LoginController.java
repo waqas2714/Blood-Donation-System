@@ -9,7 +9,31 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
+import javafx.event.ActionEvent;
+import javafx.fxml.*;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.property.SimpleStringProperty;
 
+import java.io.IOException;
+import java.net.URL;
+import java.sql.*;
+import java.util.*;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -30,13 +54,19 @@ public class LoginController implements Initializable {
     @FXML
     private Label labelError;
 
+    @FXML
+    private Integer user_id;
+    @FXML
+    private String email;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
     @FXML
     public void login(ActionEvent e) {
-        String email = txtEmailLogin.getText();
+        email = txtEmailLogin.getText();
         String password = txtPasswordLogin.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
@@ -67,7 +97,6 @@ public class LoginController implements Initializable {
                     PreparedStatement passwordStatement = connection.prepareStatement("SELECT password, role_id FROM users WHERE email = ?");
                     passwordStatement.setString(1, email);
                     ResultSet passwordResult = passwordStatement.executeQuery();
-
                     if (passwordResult.next()) {
                         // Password exists in the database
                         String storedPassword = passwordResult.getString("password");
@@ -97,27 +126,102 @@ public class LoginController implements Initializable {
     }
 
     private void loadFXMLForRole(String roleId) {
+        try{
+            Connection connection = HelloApplication.getConnection();
+            // Check if email is present in the database
+            PreparedStatement emailCheckStatement = connection.prepareStatement("SELECT user_id FROM users WHERE email = ?");
+            emailCheckStatement.setString(1, email);
+            ResultSet emailCheckResult = emailCheckStatement.executeQuery();
+            if(emailCheckResult.next()){
+            user_id = emailCheckResult.getInt("user_id");
+
         switch (roleId) {
             case "1":
-                // Load DonorViewDrives.fxml for role 1 (Donor)
+
+                // Load donorMain.fxml for role 1 (Donor)
                 loadFXML("DonorViewDrives.fxml");
                 break;
             case "2":
+                //write sql to get the hospital id
                 // Load hospitalMain.fxml for role 2 (Hospital)
-                loadFXML("hospitalMain.fxml");
+                //loadFXML("hospitalMain.fxml");
+                Integer hospid = 0;
+                emailCheckStatement = connection.prepareStatement("SELECT hospital_id FROM hospitals WHERE user_id = ?");
+                emailCheckStatement.setInt(1, user_id);
+                emailCheckResult = emailCheckStatement.executeQuery();
+                if(emailCheckResult.next()){
+                    hospid = emailCheckResult.getInt("hospital_id");
+                    System.out.println("LOGIN hospID: "+ hospid);
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hospitalMain.fxml"));
+                        Parent root = loader.load();
+
+                        hospitalMainController secondController = loader.getController();
+                        secondController.setHospitalID(hospid);
+                        // Show the second scene
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }}
                 break;
             case "3":
+                //write sql to get the ngo id
                 // Load ngoMain.fxml for role 3 (NGO)
-                loadFXML("ngoMain.fxml");
+                //loadFXML("ngoMain.fxml");
+                Integer ngoid = 0;
+                emailCheckStatement = connection.prepareStatement("SELECT ngo_id FROM ngos WHERE user_id = ?");
+                emailCheckStatement.setInt(1, user_id);
+                emailCheckResult = emailCheckStatement.executeQuery();
+                if(emailCheckResult.next()){
+                    ngoid = emailCheckResult.getInt("ngo_id");
+                    System.out.println("LOGIN ngoID: "+ ngoid);
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("ngoMain.fxml"));
+                        Parent root = loader.load();
+
+                        NgoMainController secondController = loader.getController();
+                        secondController.setNgoID(ngoid);
+                        // Show the second scene
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }}
                 break;
             case "4":
-                // Load bankMain.fxml for role 4 (Blood Bank)
-                loadFXML("bankMain.fxml");
+                //loadFXML("bankMain.fxml");
+                Integer bankid = 0;
+                emailCheckStatement = connection.prepareStatement("SELECT blood_bank_id FROM bloodbanks WHERE user_id = ?");
+                emailCheckStatement.setInt(1, user_id);
+                emailCheckResult = emailCheckStatement.executeQuery();
+                if(emailCheckResult.next()){
+                bankid = emailCheckResult.getInt("blood_bank_id");
+                    System.out.println("LOGIN bloodbankID: "+ bankid);
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("bankMain.fxml"));
+                    Parent root = loader.load();
+
+                    bankMainController secondController = loader.getController();
+                    secondController.setBloodBankID(bankid);
+
+                    // Show the second scene
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }}
                 break;
             default:
                 // Handle unexpected role ID
                 System.out.println("Unexpected role ID");
                 break;
+        } }}catch (SQLException ex) {
+            System.out.println("Error logging in. Please try again.");
+            ex.printStackTrace();
         }
     }
 

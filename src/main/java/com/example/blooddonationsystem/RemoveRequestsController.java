@@ -36,14 +36,21 @@ public class RemoveRequestsController implements Initializable {
     private TableColumn<bloodRequest, Integer> columnId;
     @FXML
     private TableColumn<bloodRequest, Date> columnDate;
-    int hospitalId;
+    @FXML
+    private Integer hospitalId;
 
-    {
-        hospitalId = 1;
+    @FXML
+    public void setHospitalID(Integer bankID){
+        this.hospitalId = bankID;
+        System.out.println("remove req hospID: "+ hospitalId);
+        initializetable();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+
+    public void initializetable(){
         columnBloodType.setCellValueFactory(new PropertyValueFactory<>("bloodType"));
         columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -124,6 +131,8 @@ public class RemoveRequestsController implements Initializable {
             // Load the login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hospitalMain.fxml"));
             Parent root = loader.load();
+            hospitalMainController secondController = loader.getController();
+            secondController.setHospitalID(hospitalId);
 
             // Get the stage information
             Stage stage = (Stage) btnBack.getScene().getWindow();

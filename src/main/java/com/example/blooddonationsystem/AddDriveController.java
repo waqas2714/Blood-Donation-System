@@ -1,3 +1,4 @@
+//////AHMAD'S CODE
 package com.example.blooddonationsystem;
 
 import javafx.collections.FXCollections;
@@ -49,6 +50,11 @@ public class AddDriveController implements Initializable {
     private static String D_name;
 
 
+    @FXML
+    private Integer ngoID;
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Code for autocomplete
@@ -72,6 +78,12 @@ public class AddDriveController implements Initializable {
                 txtFieldLoc.setText(selectedCity); // Set txtCity value to the selected city
             }
         });
+    }
+
+    @FXML
+    public void setNgoID(Integer bankID){
+        this.ngoID = bankID;
+        System.out.println("AddDrives ngoID: "+ ngoID);
     }
     public static void setValues( String driveName, int id2, int id3) // call this function and send values
     {
@@ -134,21 +146,22 @@ public class AddDriveController implements Initializable {
     public void GoBackToNGOMain(ActionEvent event)
     {
         // Load the ngoMain.fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ngoMain.fxml"));
-        Parent root = null;
         try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ngoMain.fxml"));
+            //ADD OBJECT OF NGO MAIN
+            Parent root = loader.load();
+            NgoMainController secondController = loader.getController();
+            secondController.setNgoID(ngoID);
+            // Get the stage information
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-
-        // Get the stage information
-        Stage stage = (Stage) btnBack.getScene().getWindow();
-        Scene scene = new Scene(root);
-
-        // Set the new scene onto the stage
-        stage.setScene(scene);
-        stage.show();
     }
 
 

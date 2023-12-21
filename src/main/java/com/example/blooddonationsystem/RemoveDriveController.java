@@ -1,3 +1,4 @@
+////AHMAD CODE....USE TO APPROVE DATA IN VIEW ALL REQUESTS
 package com.example.blooddonationsystem;
 
 import javafx.event.ActionEvent;
@@ -42,6 +43,8 @@ public class RemoveDriveController implements Initializable {
 
     @FXML
     private Button btnBack;
+    @FXML
+    private Integer ngoID;
 
 
     @Override
@@ -58,14 +61,18 @@ public class RemoveDriveController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
+    @FXML
+    public void setNgoID(Integer bankID){
+        this.ngoID = bankID;
+        System.out.println("AddDrives ngoID: "+ ngoID);
+    }
     public void getDrives() throws SQLException {
 
         Connection conn = HelloApplication.getConnection(); // Establish your database connection
 
         String Query = "SELECT drive_name, city from " +
-                        "donationdrives JOIN locations ON donationdrives.location_id = locations.location_id"+
-                        " WHERE organizer_id = 2";
+                "donationdrives JOIN locations ON donationdrives.location_id = locations.location_id"+
+                " WHERE organizer_id = 2";
 
         PreparedStatement statement = conn.prepareStatement(Query);
         ResultSet resultSet = statement.executeQuery();
@@ -122,7 +129,8 @@ public class RemoveDriveController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        NgoMainController secondController = loader.getController();
+        secondController.setNgoID(ngoID);
         // Get the stage information
         Stage stage = (Stage) btnBack.getScene().getWindow();
         Scene scene = new Scene(root);

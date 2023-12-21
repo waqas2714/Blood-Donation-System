@@ -65,5 +65,10 @@
             </Button>
          </children>
       </GridPane>
+      <Button fx:id="btnLogOut" layoutX="14.0" layoutY="340.0" mnemonicParsing="false" onAction="#goToLogin" style="-fx-background-color: ff0000;" text="Log Out" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

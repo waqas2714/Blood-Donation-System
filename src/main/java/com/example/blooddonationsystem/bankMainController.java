@@ -16,13 +16,21 @@ public class bankMainController implements Initializable {
 
     @FXML
     private Button btnViewRequestBank;
+    @FXML
+    private Button btnLogOut;
 
     @FXML
     private Button btnViewStorageBank;
+    @FXML
+    private Integer bloodBankID;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+    @FXML
+    public void setBloodBankID(Integer bankID){
+        this.bloodBankID = bankID;
     }
 
     @FXML
@@ -43,13 +51,34 @@ public class bankMainController implements Initializable {
             error.printStackTrace(); // Handle the exception appropriately
         }
     }
+
+    @FXML
+    public void goToLogin(ActionEvent event){
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+
+            // Get the stage information
+            Stage stage = (Stage) btnLogOut.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+    }
     @FXML
     public void gotoViewStorage(ActionEvent e) {
         try {
             // Load the signupMain.fxml file
+            System.out.println("BANKMAIN bloodbankID: "+ bloodBankID);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewStorage.fxml"));
             Parent root = loader.load();
-
+            viewStorage secondController = loader.getController();
+            secondController.setBloodBankID(bloodBankID);
             // Get the stage information
             Stage stage = (Stage) btnViewStorageBank.getScene().getWindow();
             Scene scene = new Scene(root);

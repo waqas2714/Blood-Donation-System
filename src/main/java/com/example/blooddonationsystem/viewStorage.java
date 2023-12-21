@@ -1,90 +1,117 @@
+
 package com.example.blooddonationsystem;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.event.ActionEvent;
+import javafx.fxml.*;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
-import java.net.URL;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 public class viewStorage implements Initializable {
+    @FXML
+    private Button btnBack;
+    @FXML
+    private TableView<allStorageRequests> table;
+    @FXML
+    private TableColumn<allStorageRequests, String> tableColumnBloodType;
+    @FXML
+    private TableColumn<allStorageRequests, Integer> tableColumnAmount;
 
     @FXML
-    public TableView<Map<String, String>> tableView;
-
-    @FXML
-    public TableColumn<Map<String, String>, String> bloodtypeBank;
-
-    @FXML
-    public TableColumn<Map<String, String>, String> quantityBank;
+    private Integer bloodBankID;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initializeTable();
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Leave this method empty for now
     }
 
-    private void initializeTable() {
-        bloodtypeBank.setCellValueFactory(cellData -> {
-            ObservableValue<String> observableValue = new SimpleStringProperty(cellData.getValue().get("bloodType"));
-            return observableValue;
-        });
+    @FXML
+    public void setBloodBankID(Integer bankID) {
+        this.bloodBankID = bankID;
 
-        quantityBank.setCellValueFactory(cellData -> {
-            ObservableValue<String> observableValue = new SimpleStringProperty(cellData.getValue().get("quantity"));
-            return observableValue;
-        });
-
-        // Fetch data from the database
-        ObservableList<Map<String, String>> inventoryData = getInventoryData();
-
-        // Populate the TableView with data
-        tableView.setItems(inventoryData);
+        // Now that bloodBankID is set, initialize the TableView and retrieve data
+        initializeTableView();
+        getInventory();
     }
 
-    private ObservableList<Map<String, String>> getInventoryData() {
-        ObservableList<Map<String, String>> data = FXCollections.observableArrayList();
+    private void initializeTableView() {
+        tableColumnBloodType.setCellValueFactory(new PropertyValueFactory<>("bloodType"));
+        tableColumnAmount.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+    }
 
-        // Replace the following JDBC code with your database connection and query
+    public void getInventory() {
         try {
-            int bloodbankid = 0;
-            Connection connection = HelloApplication.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT blood_type, quantity FROM inventory where blood_bank_id = ?");
-            preparedStatement.setInt(1, bloodbankid);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println("viewStorage bloodbankID: "+ bloodBankID);
+            Connection conn = HelloApplication.getConnection();
+            String sql = "CALL GetInventory(?)";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, bloodBankID);
+
+
+            ResultSet resultSet = statement.executeQuery();
+
+//            List<allPendingRequests> requestsList = new ArrayList<>();
+
+            List<allStorageRequests> requestsList = new ArrayList<>();
+            ObservableList<allStorageRequests> observableList = FXCollections.observableArrayList(requestsList);
+            table.setItems(observableList);
 
             while (resultSet.next()) {
-                Map<String, String> item = new HashMap<>();
-                item.put("blood_type", resultSet.getString("bloodtypeBank"));
-                item.put("quantity", resultSet.getString("quantityBank"));
-                data.add(item);
+                allStorageRequests request = new allStorageRequests();
+                request.setBloodType(resultSet.getString("blood_type"));
+                request.setQuantity(resultSet.getInt("quantity"));
+
+                requestsList.add(request);
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException error) {
-            error.printStackTrace();
+            // Assuming your TableView variable is named 'table'
+            table.getItems().clear();
+            table.getItems().addAll(requestsList);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle potential exceptions more gracefully in your application
         }
+    }
 
-        return data;
+    @FXML
+    public void goToBack(ActionEvent event){
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("bankMain.fxml"));
+            Parent root = loader.load();
+            bankMainController secondController = loader.getController();
+            secondController.setBloodBankID(bloodBankID);
+            // Get the stage information
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Set the new scene onto the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
     }
 }
+
 
 
