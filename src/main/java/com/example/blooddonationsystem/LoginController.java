@@ -138,10 +138,20 @@ public class LoginController implements Initializable {
         switch (roleId) {
             case "1":
 
-                // Load donorMain.fxml for role 1 (Donor)
-                loadFXML("DonorViewDrives.fxml");
+                // Load DonoViewDrives.fxml for role 1 (Donor)
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("DonorViewDrives.fxml"));
+                //ADD OBJECT OF NGO MAIN
+                Parent root = loader.load();
+                // Get the stage information
+                Stage stage = (Stage) btnSignupLogin.getScene().getWindow();
+                Scene scene = new Scene(root);
+                // Set the new scene onto the stage
+                stage.setScene(scene);
+                stage.show();
                 break;
+
             case "2":
+
                 //write sql to get the hospital id
                 // Load hospitalMain.fxml for role 2 (Hospital)
                 //loadFXML("hospitalMain.fxml");
@@ -153,15 +163,15 @@ public class LoginController implements Initializable {
                     hospid = emailCheckResult.getInt("hospital_id");
                     System.out.println("LOGIN hospID: "+ hospid);
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hospitalMain.fxml"));
-                        Parent root = loader.load();
+                        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("hospitalMain.fxml"));
+                        Parent root1 = loader1.load();
 
-                        hospitalMainController secondController = loader.getController();
+                        hospitalMainController secondController = loader1.getController();
                         secondController.setHospitalID(hospid);
                         // Show the second scene
-                        Stage stage = new Stage();
-                        stage.setScene(new Scene(root));
-                        stage.show();
+                        Stage stage1 = (Stage) btnSignupLogin.getScene().getWindow();
+                        stage1.setScene(new Scene(root1));
+                        stage1.show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }}
@@ -178,15 +188,15 @@ public class LoginController implements Initializable {
                     ngoid = emailCheckResult.getInt("ngo_id");
                     System.out.println("LOGIN ngoID: "+ ngoid);
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("ngoMain.fxml"));
-                        Parent root = loader.load();
+                        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("ngoMain.fxml"));
+                        Parent root2 = loader2.load();
 
-                        NgoMainController secondController = loader.getController();
+                        NgoMainController secondController = loader2.getController();
                         secondController.setNgoID(ngoid);
                         // Show the second scene
-                        Stage stage = new Stage();
-                        stage.setScene(new Scene(root));
-                        stage.show();
+                        Stage stage2 = (Stage) btnSignupLogin.getScene().getWindow();
+                        stage2.setScene(new Scene(root2));
+                        stage2.show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }}
@@ -201,16 +211,16 @@ public class LoginController implements Initializable {
                 bankid = emailCheckResult.getInt("blood_bank_id");
                     System.out.println("LOGIN bloodbankID: "+ bankid);
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("bankMain.fxml"));
-                    Parent root = loader.load();
+                    FXMLLoader loader3 = new FXMLLoader(getClass().getResource("bankMain.fxml"));
+                    Parent root3 = loader3.load();
 
-                    bankMainController secondController = loader.getController();
+                    bankMainController secondController = loader3.getController();
                     secondController.setBloodBankID(bankid);
 
                     // Show the second scene
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root));
-                    stage.show();
+                    Stage stage3 = (Stage) btnSignupLogin.getScene().getWindow();
+                    stage3.setScene(new Scene(root3));
+                    stage3.show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }}
@@ -222,6 +232,8 @@ public class LoginController implements Initializable {
         } }}catch (SQLException ex) {
             System.out.println("Error logging in. Please try again.");
             ex.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -46,8 +46,6 @@ public class AddDriveController implements Initializable {
     private DatePicker DateBox;
     @FXML
     private DatePicker EndDateBox;
-    private static int D_id, Loc_id, Org_id;
-    private static String D_name;
 
 
     @FXML
@@ -85,29 +83,24 @@ public class AddDriveController implements Initializable {
         this.ngoID = bankID;
         System.out.println("AddDrives ngoID: "+ ngoID);
     }
-    public static void setValues( String driveName, int id2, int id3) // call this function and send values
-    {
-        D_name = driveName;
-        Loc_id = id2; // Location ID
-        Org_id = id3; // Organization ID
-    }
+
 
     public void AddDriveFunc(ActionEvent event) throws SQLException {
 
         Connection con = HelloApplication.getConnection();
         String Location = txtFieldLoc.getText().toLowerCase();
         LocalDate Date = DateBox.getValue();
-        LocalDate endDate = DateBox.getValue();
+        LocalDate endDate = EndDateBox.getValue();
         String Name = txtFieldName.getText();
         if(Name == null || Name.isEmpty()){
             PrmtLbl.setText("Please Enter Valid Name.");
             return;
         }
-        if(Date.isBefore(LocalDate.now())){
+        if(Date.isBefore(LocalDate.now()) || Date == null){
             PrmtLbl.setText("Please Enter Valid Start Date");
             return;
         }
-        if(endDate.isBefore(Date)){
+        if(endDate.isBefore(Date) || Date == null){
             PrmtLbl.setText("End Date cannot be before Start Date.");
             return;
         }
@@ -124,7 +117,7 @@ public class AddDriveController implements Initializable {
             statement1.setString(1, Name);
             statement1.setDate(2, java.sql.Date.valueOf(Date));
             statement1.setDate(3, java.sql.Date.valueOf(endDate));
-            statement1.setInt(4, loc_id_test);
+            statement1.setInt(4, ngoID);
             statement1.setInt(5, 2);
 
 

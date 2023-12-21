@@ -72,9 +72,10 @@ public class RemoveDriveController implements Initializable {
 
         String Query = "SELECT drive_name, city from " +
                 "donationdrives JOIN locations ON donationdrives.location_id = locations.location_id"+
-                " WHERE organizer_id = 2";
+                " WHERE organizer_id = ?";
 
         PreparedStatement statement = conn.prepareStatement(Query);
+        statement.setInt(1, ngoID);
         ResultSet resultSet = statement.executeQuery();
         List<AddDrive> drivesList = new ArrayList<>();
 
