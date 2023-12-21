@@ -39,7 +39,8 @@ public class bankMainController implements Initializable {
             // Load the signupMain.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewRequests.fxml"));
             Parent root = loader.load();
-
+            viewRequests secondController = loader.getController();
+            secondController.setBankid(bloodBankID);
             // Get the stage information
             Stage stage = (Stage) btnViewRequestBank.getScene().getWindow();
             Scene scene = new Scene(root);

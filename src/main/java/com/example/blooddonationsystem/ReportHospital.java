@@ -27,6 +27,8 @@ public class ReportHospital implements Initializable {
     @FXML
     private Button btnBack;
     @FXML
+    private Integer bankid;
+    @FXML
     private TableView<allPendingRequests> table;
     @FXML
     private TableColumn<allPendingRequests, Integer> tableColumnRequestId;
@@ -44,7 +46,11 @@ public class ReportHospital implements Initializable {
     }
 
 
-
+    @FXML
+    public void  setBankidID(Integer bankID){
+        bankid = bankID;
+        System.out.println("all requests bankID: "+ bankid);
+    }
     public void getAllOffers(int hospitalId) {
         try {
             Connection conn = HelloApplication.getConnection();
@@ -85,7 +91,8 @@ public class ReportHospital implements Initializable {
          // Load the login.fxml file
          FXMLLoader loader = new FXMLLoader(getClass().getResource("viewRequests.fxml"));
          Parent root = loader.load();
-
+viewRequests second = loader.getController();
+second.setBankid(bankid);
          // Get the stage information
          Stage stage = (Stage) btnBack.getScene().getWindow();
          Scene scene = new Scene(root);

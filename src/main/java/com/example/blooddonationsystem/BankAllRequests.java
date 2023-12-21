@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,6 +28,14 @@ public class BankAllRequests implements Initializable{
     @FXML
     private Button btnBack;
     @FXML
+    private Label Lb1;
+    @FXML
+    private Label Lb2;
+    @FXML
+    private Button Approve;
+    @FXML
+    private Integer bankid;
+    @FXML
     private TableView<allBankRequests> table;
     @FXML
     private TableColumn<allBankRequests, Integer> tableColumnRequestId;
@@ -44,6 +53,12 @@ public class BankAllRequests implements Initializable{
         tableColumnBloodType.setCellValueFactory(new PropertyValueFactory<>("bloodType"));
         tableColumnAmount.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         getAllOffers();
+    }
+
+    @FXML
+    public void  setBankidID(Integer bankID){
+        bankid = bankID;
+        System.out.println("all requests bankID: "+ bankid);
     }
 
 
@@ -78,12 +93,18 @@ public class BankAllRequests implements Initializable{
             e.printStackTrace(); // Handle potential exceptions more gracefully in your application
         }
     }
+
+
+
+
     @FXML
     public void goToViewRequests(ActionEvent event){
         try {
             // Load the login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewRequests.fxml"));
             Parent root = loader.load();
+            viewRequests second = loader.getController();
+            second.setBankid(bankid);
 
             // Get the stage information
             Stage stage = (Stage) btnBack.getScene().getWindow();
