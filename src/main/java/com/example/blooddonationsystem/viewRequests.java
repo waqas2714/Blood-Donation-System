@@ -43,12 +43,18 @@ public class viewRequests {
     private Button btnBackBank;
     @FXML
     private Button  btnAllRequests;
+    @FXML
+    private Integer bankid;
 private static Integer hospID;
 private static String selectedBloodType;
     public static Integer getHospID(){
         return hospID;
     }
 
+    @FXML
+    public void setBankid(Integer bankID){
+        bankid = bankID;
+    }
     public static List<Integer> getDistinctHospitalIds() throws SQLException {
         List<Integer> hospitalIds = new ArrayList<>();
 
@@ -113,6 +119,7 @@ private static String selectedBloodType;
                     ReportHospital reportHospitalController = loader.getController();
                     hospID = Integer.parseInt(enteredHospitalId);
                     reportHospitalController.getAllOffers(hospID);
+                    reportHospitalController.setBankidID(bankid);
 
                     // Get the stage information
                     Stage stage = (Stage) btnHospitalBank.getScene().getWindow();
@@ -140,6 +147,8 @@ private static String selectedBloodType;
             // Load the login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bankMain.fxml"));
             Parent root = loader.load();
+            bankMainController second = loader.getController();
+            second.setBloodBankID(bankid);
 
             // Get the stage information
             Stage stage = (Stage) btnBackBank.getScene().getWindow();
@@ -159,7 +168,8 @@ private static String selectedBloodType;
             // Load the login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bankAllRequests.fxml"));
             Parent root = loader.load();
-
+            BankAllRequests secondController = loader.getController();
+            secondController.setBankidID(bankid);
             // Get the stage information
             Stage stage = (Stage) btnAllRequests.getScene().getWindow();
             Scene scene = new Scene(root);
@@ -209,6 +219,7 @@ private static String selectedBloodType;
 
                 // Get the controller instance from the FXMLLoader
                 ReportBloodType reportBloodTypeController = loader.getController();
+                reportBloodTypeController.setBankidID(bankid);
                 reportBloodTypeController.getAllOffers(selectedBloodType);
 
                 // Get the stage information

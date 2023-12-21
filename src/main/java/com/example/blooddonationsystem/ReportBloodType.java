@@ -29,6 +29,8 @@ public class ReportBloodType implements Initializable{
     @FXML
     private TableView<bloodRequestData> table;
     @FXML
+    private Integer bankid;
+    @FXML
     private TableColumn<bloodRequestData, Integer> tableColumnRequestId;
     @FXML
     private TableColumn<bloodRequestData, Integer> tableColumnHospitalId;
@@ -40,6 +42,11 @@ public class ReportBloodType implements Initializable{
         tableColumnRequestId.setCellValueFactory(new PropertyValueFactory<>("requestId"));
         tableColumnHospitalId.setCellValueFactory(new PropertyValueFactory<>("hospitalId"));
         tableColumnAmount.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+    }
+    @FXML
+    public void  setBankidID(Integer bankID){
+        bankid = bankID;
+        System.out.println("all requests bankID: "+ bankid);
     }
 
     public void getAllOffers(String entblood) {
@@ -82,7 +89,8 @@ public class ReportBloodType implements Initializable{
             // Load the login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewRequests.fxml"));
             Parent root = loader.load();
-
+            viewRequests second = loader.getController();
+            second.setBankid(bankid);
             // Get the stage information
             Stage stage = (Stage) btnBack.getScene().getWindow();
             Scene scene = new Scene(root);
