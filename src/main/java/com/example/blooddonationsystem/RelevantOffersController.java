@@ -66,46 +66,102 @@ public class RelevantOffersController implements Initializable {
         getOffers();
     }
 
+//    public void getOffers() {
+//        try {
+//            Connection conn = HelloApplication.getConnection(); // Establish your database connection
+//
+//            String query = "SELECT username, email, website, rbh.blood_type, rbh.quantity, rbh.request_date, contact " +
+//                    "FROM users " +
+//                    "INNER JOIN bloodbanks AS bb ON users.role_id = 4 AND bb.user_id = users.user_id " +
+//                    "INNER JOIN inventory AS inv ON bb.blood_bank_id = inv.blood_bank_id " +
+//                    "INNER JOIN locations ON locations.location_id = users.location_id " +
+//                    "INNER JOIN requestsbyhospitals AS rbh ON inv.blood_type = rbh.blood_type " +
+//                    "AND inv.quantity >= rbh.quantity " +
+//                    "AND rbh.hospital_id = ? " + // Use parameter for hospital_id
+//                    "AND users.location_id = ( " +
+//                    "    SELECT location_id FROM users WHERE user_id = ( " +
+//                    "        SELECT user_id FROM hospitals WHERE hospital_id = ? " + // Use parameter for hospital_id
+//                    "    ) " +
+//                    ") " +
+//                    "ORDER BY username";
+//
+//            PreparedStatement statement = conn.prepareStatement(query);
+//            statement.setInt(1, hospitalId); // Set hospital_id parameter
+//            statement.setInt(2, hospitalId); // Set hospital_id parameter
+//
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            List<relevantOffers> offersList = new ArrayList<>();
+//
+//            while (resultSet.next()) {
+//                relevantOffers offer = new relevantOffers();
+//                offer.setName(resultSet.getString("username"));
+//                offer.setEmail(resultSet.getString("email"));
+//                offer.setWebsite(resultSet.getString("website"));
+//                offer.setBloodType(resultSet.getString("blood_type"));
+//                offer.setQuantity(resultSet.getInt("quantity"));
+//                offer.setContact(resultSet.getString("contact"));
+//                offer.setRequestedOn(resultSet.getDate("request_date"));
+//
+//                offersList.add(offer);
+//            }
+//
+//            // Assuming your TableView variable is named 'table'
+//            table.getItems().clear();
+//            table.getItems().addAll(offersList);
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace(); // Handle potential exceptions more gracefully in your application
+//        }
+//    }
+
     public void getOffers() {
+        try {
+            Connection conn = HelloApplication.getConnection(); // Establish your database connection
 
-            try {
-                Connection conn = HelloApplication.getConnection(); // Establish your database connection
+            String query = "SELECT username, email, website, rbh.blood_type, rbh.quantity, rbh.request_date " +
+                    "FROM users " +
+                    "INNER JOIN bloodbanks AS bb ON users.role_id = 4 AND bb.user_id = users.user_id " +
+                    "INNER JOIN inventory AS inv ON bb.blood_bank_id = inv.blood_bank_id " +
+                    "INNER JOIN locations ON locations.location_id = users.location_id " +
+                    "INNER JOIN requestsbyhospitals AS rbh ON inv.blood_type = rbh.blood_type " +
+                    "AND inv.quantity >= rbh.quantity " +
+                    "AND rbh.hospital_id = ? " + // Use parameter for hospital_id
+                    "AND users.location_id = ( " +
+                    "    SELECT location_id FROM users WHERE user_id = ( " +
+                    "        SELECT user_id FROM hospitals WHERE hospital_id = ? " + // Use parameter for hospital_id
+                    "    ) " +
+                    ") " +
+                    "ORDER BY username";
 
-                String callProcedure = "{CALL GetBloodDonationRequests(?)}"; // Stored procedure call
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, 1); // Set hospital_id parameter
+            statement.setInt(2, 1); // Set hospital_id parameter
 
-                CallableStatement statement = conn.prepareCall(callProcedure);
-                statement.setInt(1, hospitalId); // Set hospitalID parameter
+            ResultSet resultSet = statement.executeQuery();
 
-                ResultSet resultSet = statement.executeQuery();
+            List<relevantOffers> offersList = new ArrayList<>();
 
-                List<relevantOffers> offersList = new ArrayList<>();
+            while (resultSet.next()) {
+                relevantOffers offer = new relevantOffers();
+                offer.setName(resultSet.getString("username"));
+                offer.setEmail(resultSet.getString("email"));
+                offer.setWebsite(resultSet.getString("website"));
+                offer.setBloodType(resultSet.getString("blood_type"));
+                offer.setQuantity(resultSet.getInt("quantity"));
+                offer.setRequestedOn(resultSet.getDate("request_date"));
 
-                while (resultSet.next()) {
-                    String approvalState = resultSet.getString("approval_state");
-
-                    if ("pending".equals(approvalState)) {
-                        relevantOffers offer = new relevantOffers();
-                        offer.setName(resultSet.getString("username"));
-                        offer.setEmail(resultSet.getString("email"));
-                        offer.setWebsite(resultSet.getString("website"));
-                        offer.setBloodType(resultSet.getString("blood_type"));
-                        offer.setQuantity(resultSet.getInt("quantity"));
-                        offer.setContact(resultSet.getString("contact"));
-                        offer.setRequestedOn(resultSet.getDate("request_date"));
-
-                        offersList.add(offer);
-                    }
-                }
-
-                // Assuming your TableView variable is named 'table'
-                table.getItems().clear();
-                table.getItems().addAll(offersList);
-
-            } catch (SQLException e) {
-                e.printStackTrace(); // Handle potential exceptions more gracefully in your application
+                offersList.add(offer);
             }
-    }
 
+            // Assuming your TableView variable is named 'table'
+            table.getItems().clear();
+            table.getItems().addAll(offersList);
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle potential exceptions more gracefully in your application
+        }
+    }
     @FXML
     public void goToHospitalMain(ActionEvent event){
         try {

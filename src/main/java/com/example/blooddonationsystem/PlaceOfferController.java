@@ -69,7 +69,7 @@ public class PlaceOfferController implements Initializable {
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
 
                     // Set values to the query parameters
-                    preparedStatement.setInt(1, hospitalId); // Assuming hospital_id is set elsewhere
+                    preparedStatement.setInt(1, 1); // Assuming hospital_id is set elsewhere
                     preparedStatement.setString(2, bloodType);
                     preparedStatement.setInt(3, amount);
                     preparedStatement.setDate(4, java.sql.Date.valueOf(LocalDate.now())); // Set current date for request_date
